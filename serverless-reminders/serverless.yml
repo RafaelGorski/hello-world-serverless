@@ -1,0 +1,32 @@
+service: serverless-reminders
+
+# the following provider will enable AIM permission for SES to send emails.
+provider:
+  name: aws
+  runtime: nodejs6.10
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "ses:*"
+      Resource: 
+        - "*"
+
+# you can define service wide environment variables here
+#  environment:
+#    variable1: value1
+
+functions:
+  dailyReminder:
+    handler: handler.sendReminderDaily
+    events:
+      - schedule: rate(1 day)
+
+  weekendReminder:
+    handler: handler.sendReminderWeekend
+    events:
+      - schedule: cron(30 22 ? * SUN, SAT *)
+
+
+#    Define function environment variables here
+#    environment:
+#      variable2: value2
