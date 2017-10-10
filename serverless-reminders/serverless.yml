@@ -1,4 +1,6 @@
-service: serverless-reminders
+service: 
+  name: serverless-reminders
+  publish: false # disable auto-publishing to serveless framework site
 
 # the following provider will enable AIM permission for SES to send emails.
 provider:
